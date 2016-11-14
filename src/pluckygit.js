@@ -41,7 +41,7 @@ class PluckyGit extends Task {
 			Git.Repository.open(repoDirectory).then((repo) => {
 				repository = repo;
 
-				return repository.fetchAll(cloneOptions, true);
+				return repository.fetchAll(cloneOptions.fetchOpt, true);
 			}).then(() => {
 				repository.mergeBranches('master', 'origin/master');
 			}).done(() => {
