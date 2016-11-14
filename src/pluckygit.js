@@ -1,7 +1,8 @@
 const {Task} = require('plucky-pipeliner');
 const Git = require('nodegit');
 const path = require('path');
-const fs = require('fs-extra');
+const fsextra = require('fs-extra');
+const fs = require('fs');
 
 class PluckyGit extends Task {
 	handler(state, next) {
@@ -25,16 +26,26 @@ class PluckyGit extends Task {
 		  }
 		}};
 		const repoDirectory = path.join(process.cwd(), params.folder);
-		fs.remove(repoDirectory, (err) => {
+		fs.access(repoDirectory, fs.F_OK, (err) => {
 			if(err) {
-				return next(1, {status:error.toString()});
+				// fs access error means directory does not exist.  
+				Git.Clone(params.repository, repoDirectory, cloneOptions)
+				.then((repository) => {
+					return next(0, {result: repoDirectory});
+				}).catch((error) => {
+					return next(1, {status:error.toString()});
+				});
+				return;
 			}
-			Git.Clone(params.repository, repoDirectory, cloneOptions)
-			.then((repository) => {
+			let repository;
+			Git.Repository.open(repoDirectory).then((repo) => {
+				repository = repo;
+
+				return repository.fetchAll(cloneOptions, true);
+			}).then(() => {
+				repository.mergeBranches('master', 'origin/master');
+			}).done(() => {
 				return next(0, {result: repoDirectory});
-			}).catch((error) => {
-				console.log(error);
-				return next(1, {status:error.toString()});
 			});
 		});
 	}
