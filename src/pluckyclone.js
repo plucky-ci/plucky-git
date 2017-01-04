@@ -2,7 +2,7 @@ const {Task} = require('plucky-pipeliner');
 const GitWrap = require('./gitwrap');
 const path = require('path');
 
-class PluckyGit extends Task {
+class PluckyClone extends Task {
 	handler(state, next) {
 		const {
 			params = {},
@@ -22,4 +22,4 @@ class PluckyGit extends Task {
 	}
 }
 
-module.exports = { PluckyGit };
+module.exports = { PluckyClone };

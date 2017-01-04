@@ -1,5 +1,7 @@
 const {
-  PluckyGit
-} = require('./src/pluckygit');
+  PluckyClone
+} = require('./src/pluckyclone');
 
-module.exports = PluckyGit;
+const GitWrap = require('./src/gitwrap');
+
+module.exports = {PluckyClone, GitWrap};
