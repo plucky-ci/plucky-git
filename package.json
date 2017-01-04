@@ -1,6 +1,6 @@
 {
   "name": "plucky-git",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "git plugin for plucky",
   "main": "index.js",
   "scripts": {
