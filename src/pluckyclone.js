@@ -22,4 +22,26 @@ class PluckyClone extends Task {
 	}
 }
 
-module.exports = { PluckyClone };
+class PluckyCommitAndPush extends Task {
+	handler(state, next) {
+		const {
+			params = {},
+		} = state;
+
+		if(!params.folder) {
+			return next(1, {status: 'folder must exist'});
+		}
+		if(!params.file) {
+			return newx(1, {status: 'file to commit must exist'});
+		}
+
+		const gitWrap = new GitWrap(params.folder, '');
+		gitWrap.commit(params.file).then(() => {
+			return next(0, {});
+		}).catch((error) => {
+			console.log('error');
+		});
+	}
+}
+
+module.exports = { PluckyClone, PluckyCommitAndPush };

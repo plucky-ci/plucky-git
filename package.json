@@ -4,7 +4,7 @@
   "description": "git plugin for plucky",
   "main": "index.js",
   "scripts": {
-    "test": "npm run createTestDirectory && lab && rm -rf testdirectory",
+    "test": "npm run createTestDirectory && lab -m 10000 && rm -rf testdirectory",
     "createTestDirectory": "mkdir testdirectory && cd testdirectory && git init"
   },
   "repository": {
