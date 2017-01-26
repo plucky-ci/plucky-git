@@ -1,5 +1,5 @@
 const {Task} = require('plucky-pipeliner');
-const GitWrap = require('./gitwrap');
+const GitWrap = require('plucky-common').GitWrap;
 const path = require('path');
 
 class PluckyClone extends Task {
