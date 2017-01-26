@@ -87,7 +87,7 @@ describe('PluckyGit', ()=>{
 
 				const pluckyCommitAndPush = new PluckyCommitAndPush();
 				pluckyCommitAndPush.handler({params: {
-					folder:'clonedtestdirectory/.git',
+					folder:'clonedtestdirectory',
 					file: 'README.md'
 				}}, (code, val) => {
 					expect(code).to.be.equal(0);
